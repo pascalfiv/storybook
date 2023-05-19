@@ -3,7 +3,7 @@ import semver from 'semver';
 import { join } from 'path';
 import slash from 'slash';
 import glob from 'globby';
-import { getStorybookData, updateMainConfig } from '../helpers/mainConfigFile';
+import { updateMainConfig } from '../helpers/mainConfigFile';
 import type { Fix } from '../types';
 import { getStorybookVersionSpecifier } from '../../helpers';
 
@@ -18,9 +18,7 @@ interface Options {
 export const mdxgfm: Fix<Options> = {
   id: 'github-flavored-markdown-mdx',
 
-  async check({ configDir, packageManager }) {
-    const { mainConfig, storybookVersion } = await getStorybookData({ packageManager, configDir });
-
+  async check({ configDir, mainConfig, storybookVersion }) {
     if (!semver.gte(storybookVersion, '7.0.0')) {
       return null;
     }
